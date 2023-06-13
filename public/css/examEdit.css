@@ -151,15 +151,25 @@ label {
 .answers {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.7rem;
+  gap: 1rem;
   margin: 1rem 0 1rem 0;
 }
-.answer {
+.answers div {
   width: 100%;
-  background-color: white;
-  border-radius: 7px;
-  padding: 0.7rem 0.5rem;
-  border: 0.1px solid gray;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.answer {
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: none;
+  border-bottom: 0.1rem solid lightgray;
+  width: 100%;
+  font-family: "Inter", sans-serif;
+}
+.answer:focus {
+  outline: none;
 }
 .add-more {
   text-align: center;

@@ -16,15 +16,29 @@ $(document).ready(() => {
         <div class="questions-box">
           <div class="questions">
             <div class="question">
-              <p>Soal</p>
               <div class="display_image"></div>
               <textarea name="question_text" class='soal-text' placeholder="Masukan Soal"></textarea>
               <div class="answers">
-                <input placeholder='jawaban benar' name='correct_answer' required class='answer'/>
-                <input placeholder='jawaban lain' name='wrong_answer' required class='answer'/>
-                <input placeholder='jawaban lain' name='wrong_answer' required class='answer'/>
-                <input placeholder='jawaban lain' name='wrong_answer' required class='answer'/>
-                <input placeholder='jawaban lain' name='wrong_answer' required class='answer'/>
+                <div>
+                  <input type="radio" name="wrong_answer" title="jawaban benar" id="" required />
+                  <input type="text" name="" class="answer" placeholder="pilihan 1" />
+                </div>
+                <div>
+                  <input type="radio" name="wrong_answer" title="jawaban benar" id="" />
+                  <input type="text" name="" class="answer" placeholder="pilihan 2" />
+                </div>
+                <div>
+                  <input type="radio" name="wrong_answer" title="jawaban benar" id="" />
+                  <input type="text" name="" class="answer" placeholder="pilihan 3" />
+                </div>
+                <div>
+                  <input type="radio" name="wrong_answer" title="jawaban benar" id="" />
+                  <input type="text" name="" class="answer" placeholder="pilihan 4" />
+                </div>
+                <div>
+                  <input type="radio" name="wrong_answer" title="jawaban benar" id="" />
+                  <input type="text" name="" class="answer" placeholder="pilihan 5" />
+                </div>
                 <label class="custom-file-upload">
                     <input type="file" class="input-file" multiple="multiple" name="question_img" accept="image/*"/>
                     <i class="uil uil-file-plus-alt"></i> Masukan Gambar
@@ -48,19 +62,34 @@ $(document).ready(() => {
 
   // ADD MORE
 
-  $(".main-background").on("click", "#add-more", () => {
+  $(".main-background").on("click", "#add-more", function () {
+    let index = Math.random().toString(16).slice(2);
     $(".questions").append([
       `
           <div class="question">
-            <p>Soal</p>
             <div class="display_image"></div>
             <textarea name="question_text" class='soal-text' placeholder="Masukan Soal"></textarea>
             <div class="answers">
-                <input placeholder='jawaban benar' name='correct_answer'required class='answer'/>
-                <input placeholder='jawaban lain' name='wrong_answer'required class='answer'/>
-                <input placeholder='jawaban lain' name='wrong_answer'required class='answer'/>
-                <input placeholder='jawaban lain' name='wrong_answer'required class='answer'/>
-                <input placeholder='jawaban lain' name='wrong_answer'required class='answer'/>
+                <div>
+                  <input type="radio" name="${index}" title="jawaban benar" id="" required />
+                  <input type="text" name="" class="answer" placeholder="pilihan 1" />
+                </div>
+                <div>
+                  <input type="radio" name="${index}" title="jawaban benar" id="" />
+                  <input type="text" name="" class="answer" placeholder="pilihan 2" />
+                </div>
+                <div>
+                  <input type="radio" name="${index}" title="jawaban benar" id="" />
+                  <input type="text" name="" class="answer" placeholder="pilihan 3" />
+                </div>
+                <div>
+                  <input type="radio" name="${index}" title="jawaban benar" id="" />
+                  <input type="text" name="" class="answer" placeholder="pilihan 4" />
+                </div>
+                <div>
+                  <input type="radio" name="${index}" title="jawaban benar" id="" />
+                  <input type="text" name="" class="answer" placeholder="pilihan 5" />
+                </div>
                 
                 <label class="custom-file-upload">
                       <input type="file" class="input-file" multiple="multiple" name="question_img" accept="image/*"/>
@@ -144,6 +173,22 @@ $(document).ready(() => {
 
   const manualForm = document.getElementById("submit-form");
   manualForm.addEventListener("submit", (e) => {
+    $("input[type=radio]").each(function () {
+      if ($(this).is(":checked")) {
+        $(this).html(
+          `<input type="hidden" name="correct_answer" value="${$(this)
+            .next()
+            .val()}" />`
+        );
+      } else {
+        $(this).html(
+          `<input type="hidden" name="wrong_answer" value="${$(this)
+            .next()
+            .val()}" />`
+        );
+      }
+    });
+
     let formData = new FormData(manualForm);
     formData.append("index_deleted", question_with_img);
     e.preventDefault();

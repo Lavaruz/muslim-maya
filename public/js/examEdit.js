@@ -33,21 +33,36 @@ $(document).ready(() => {
                 quest.question_text
               }</textarea>
               <div class="answers">
-                <input placeholder='jawaban benar' name='correct_answer' class='answer' required value="${
-                  quest.correct_answer
-                }"/>
-                <input placeholder='jawaban lain' name='wrong_answer' class='answer' required value="${
-                  w_ans[0]
-                }"/>
-                <input placeholder='jawaban lain' name='wrong_answer' class='answer' required value="${
-                  w_ans[1]
-                }"/>
-                <input placeholder='jawaban lain' name='wrong_answer' class='answer' required value="${
-                  w_ans[2]
-                }"/>
-                <input placeholder='jawaban lain' name='wrong_answer' class='answer' required value="${
-                  w_ans[3]
-                }"/>
+                <div>
+                  <input type="radio" name="${index}" title="jawaban benar" id="" checked required />
+                  <input type="text" name="" class="answer" placeholder="pilihan 1" value="${
+                    quest.correct_answer
+                  }" />
+                </div>
+                <div>
+                  <input type="radio" name="${index}" title="jawaban benar" id="" />
+                  <input type="text" name="" class="answer" placeholder="pilihan 2" value="${
+                    w_ans[0]
+                  }" />
+                </div>
+                <div>
+                  <input type="radio" name="${index}" title="jawaban benar" id="" />
+                  <input type="text" name="" class="answer" placeholder="pilihan 3" value="${
+                    w_ans[1]
+                  }" />
+                </div>
+                <div>
+                  <input type="radio" name="${index}" title="jawaban benar" id="" />
+                  <input type="text" name="" class="answer" placeholder="pilihan 4" value="${
+                    w_ans[2]
+                  }" />
+                </div>
+                <div>
+                  <input type="radio" name="${index}" title="jawaban benar" id="" />
+                  <input type="text" name="" class="answer" placeholder="pilihan 5" value="${
+                    w_ans[3]
+                  }" />
+                </div>
                 <input type="hidden" name="row_id" class="row_id" value="${
                   quest.unique_id
                 }">
@@ -190,6 +205,22 @@ $(document).ready(() => {
   // UPDATE FORM SUBMIT
   const manualForm = document.getElementById("submit-form");
   manualForm.addEventListener("submit", (e) => {
+    $("input[type=radio]").each(function () {
+      if ($(this).is(":checked")) {
+        $(this).html(
+          `<input type="hidden" name="correct_answer" value="${$(this)
+            .next()
+            .val()}" />`
+        );
+      } else {
+        $(this).html(
+          `<input type="hidden" name="wrong_answer" value="${$(this)
+            .next()
+            .val()}" />`
+        );
+      }
+    });
+
     let formData = new FormData(manualForm);
     formData.append("exam_unique_id", unique_id);
     formData.append("question_unique_id", question_id);
